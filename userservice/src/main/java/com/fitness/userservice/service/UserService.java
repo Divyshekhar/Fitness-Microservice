@@ -5,13 +5,15 @@ import com.fitness.userservice.dto.UserResponse;
 import com.fitness.userservice.model.User;
 import com.fitness.userservice.repository.UserRepository;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+
+    private final UserRepository userRepository;
     public UserResponse register(@Valid RegisterRequest request) {
         if(userRepository.existsByEmail(request.getEmail())){
             throw new RuntimeException("User already exists with this email");
